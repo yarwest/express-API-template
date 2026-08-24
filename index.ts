@@ -1,7 +1,12 @@
 import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 
-dotenv.config()
+const envRes = dotenv.config()
+
+if (envRes.error) {
+  throw envRes.error;
+}
+
 const app = express();
 
 app.use(express.json());
