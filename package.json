@@ -1,18 +1,26 @@
 {
   "name": "template_api",
-  "packageManager": "yarn@3.5.0",
-  "type": "module",
+  "packageManager": "yarn@1.22.22",
   "dependencies": {
+    "@codegenie/serverless-express": "^5.0.0",
     "dotenv": "^17.4.2",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/node": "^26.2.0",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "concurrently": "^10.0.6",
+    "esbuild": "^0.28.2",
+    "tsx": "^4.23.15",
+    "yarn": "^1.22.22"
   },
   "scripts": {
-    "build": "tsc",
-    "start": "tsc && node ./build"
+    "dev": "concurrently \"tsx watch src/.\" \"tsc --noEmit --watch --preserveWatchOutput\"",
+    "typecheck": "tsc --noEmit --watch",
+    "build": "./build.sh",
+    "bundle": "esbuild index.ts --bundle --platform=node --target=node24 --format=cjs --outfile=build/index.js",
+    "start": "node --trace-exit ./build/index.js"
   }
 }
